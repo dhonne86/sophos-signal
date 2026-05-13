@@ -1,0 +1,119 @@
+openai_api_key: ""
+brapi_api_key: ""
+
+# modelos
+# gpt-3.5-turbo	-- simples, barato e rápido
+# gpt-4 -- mais caro e mais preciso
+# gpt-4-turbo -- mais poderoso
+# gpt-4o --multi-modal, mais poderoso
+
+modelos:
+  independentes:
+      # multi-modal!
+      analisar_previsao: gpt-4o
+      # multi-modal!      
+      analisar_tecnico: gpt-4o
+      analisar_fundamentalista: gpt-4       
+      analisar_noticias: gpt-4      
+  avaliadores:
+      avaliador_1: gpt-4-turbo
+      avaliador_2: gpt-4-turbo
+
+prompts:
+  independentes:
+    analisar_previsao: >
+      Analise o gráfico de previsão de preços e diga se a tendência
+      é positiva, negativa ou neutra. Justifique em até 250 palavras.
+    analisar_tecnico: >
+      Com base no gráfico técnico (RSI/MACD/MME), diga se a recomendação
+      seria compra, venda ou manutenção. Explique brevemente.
+    analisar_noticias: >
+      Analise o sentimento das noticias a seguir considerando a empresa,
+      o IBOVESPA, o mercado brasileiro e os cenarios economicos nacionais
+      e internacionais. Classifique como positivo, negativo ou neutro e
+      forneca uma justificativa resumida, destacando riscos macroeconomicos
+      relevantes.
+    analisar_fundamentalista: >
+      Atue como um analista fundamentalista senior de acoes brasileiras.
+      Use exclusivamente os dados contabeis fornecidos abaixo, extraidos das
+      demonstracoes financeiras da empresa. Avalie liquidez, endividamento,
+      estrutura de capital, rentabilidade, margens, evolucao de receitas e
+      lucro, qualidade do fluxo de caixa, capital de giro, patrimonio liquido,
+      riscos operacionais e sinais de deterioracao ou melhora. Compare os
+      ultimos periodos disponiveis e destaque as maiores variacoes relevantes.
+      Quando houver dados suficientes, interprete indicadores derivados como
+      liquidez corrente, passivo/patrimonio, caixa/passivo circulante, margem
+      liquida, margem operacional e fluxo de caixa operacional. Se algum dado
+      estiver ausente ou inconsistente, declare a limitacao em vez de assumir.
+      Entregue a resposta em formato objetivo com: Diagnostico, Pontos fortes,
+      Pontos de atencao, Riscos, Conclusao fundamentalista e impacto provavel
+      na decisao de investimento. Limite a analise a no maximo 450 palavras.
+
+      
+  avaliadores:
+    avaliador_1: >
+      Você é um avaliador imparcial. Leia os pareceres dos especialistas e
+      forneça uma recomendação final: COMPRAR, VENDER ou ESPERAR.
+      Justifique em até 250 palavras.
+    avaliador_2: >
+      Com base nas análises a seguir dos agentes de previsão, técnico e
+      notícias, forneça um parecer final objetivo: COMPRAR, VENDER ou ESPERAR.
+      Inclua uma justificativa coerente e concisa.
+
+noticias:
+  termos:
+    - ações
+    - balanço
+    - lucro
+    - prejuízo
+    - resultados
+    - financeiro
+    - investidores
+  termos_ibovespa:
+    - Ibovespa hoje
+    - IBOVESPA bolsa brasileira
+    - B3 mercado financeiro
+    - acoes brasileiras
+    - fluxo estrangeiro bolsa brasileira
+    - mercado futuro Ibovespa
+  cenarios_economicos:
+    - Selic juros Brasil
+    - inflacao IPCA Brasil
+    - dolar real cambio
+    - risco fiscal Brasil
+    - Banco Central Brasil Copom
+    - commodities petroleo minerio de ferro
+    - Federal Reserve juros Estados Unidos
+    - economia China commodities
+    - bolsas globais Wall Street
+    - mercado emergente Brasil
+
+  fontes:
+    - valor.globo.com
+    - exame.com
+    - infomoney.com.br
+    - braziljournal.com
+    - investing.com
+    - forbes.com.br
+    - b3.com.br
+    - estadao.com.br
+    - bloomberg.com
+    - reuters.com
+    - cnbc.com
+    - marketwatch.com
+    - wsj.com
+    - ft.com
+    - finance.yahoo.com
+    - moneytimes.com.br
+    - suno.com.br
+    - statusinvest.com.br
+    - poder360.com.br
+    - cnnbrasil.com.br
+    - g1.globo.com
+    - economia.uol.com.br
+    - gov.br
+    - bcb.gov.br
+    - ibge.gov.br
+
+  maximo_resultados: 12
+  maximo_por_secao: 4
