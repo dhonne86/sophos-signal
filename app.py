@@ -5,6 +5,7 @@ import os
 
 import polars as pl
 import streamlit as st
+import streamlit.components.v1 as components
 
 from signal_engine import gerar_sinal
 from Util import (
@@ -42,6 +43,17 @@ def aplicar_estilos():
             --sophos-panel: #ffffff;
         }
 
+        html, body, [class*="css"] {
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        }
+
+        body {
+            background:
+                radial-gradient(circle at top left, rgba(15, 118, 110, 0.12), transparent 32%),
+                radial-gradient(circle at top right, rgba(37, 99, 235, 0.10), transparent 28%),
+                linear-gradient(180deg, #f8fbfa 0%, #eef5f2 100%);
+        }
+
         .block-container {
             padding-top: 1rem;
             padding-bottom: 2.5rem;
@@ -54,26 +66,44 @@ def aplicar_estilos():
         }
 
         .sophos-hero {
-            border: 1px solid var(--sophos-line);
-            border-radius: 8px;
-            padding: 1.1rem 1.25rem;
-            background: #ffffff;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(15, 118, 110, 0.12);
+            border-radius: 20px;
+            padding: 1.2rem 1.25rem;
+            background:
+                linear-gradient(135deg, rgba(255,255,255,0.96), rgba(255,255,255,0.88)),
+                linear-gradient(120deg, rgba(15,118,110,0.12), rgba(37,99,235,0.06));
+            box-shadow: 0 18px 40px rgba(15, 23, 42, 0.06);
             margin-bottom: 1rem;
+        }
+
+        .sophos-hero::after {
+            content: "";
+            position: absolute;
+            inset: auto -3rem -4rem auto;
+            width: 12rem;
+            height: 12rem;
+            border-radius: 999px;
+            background: radial-gradient(circle, rgba(15,118,110,0.12), transparent 70%);
+            pointer-events: none;
         }
 
         .sophos-brand {
             color: var(--sophos-green);
-            font-size: 0.82rem;
-            font-weight: 760;
+            font-size: 0.78rem;
+            font-weight: 800;
             text-transform: uppercase;
             margin-bottom: 0.3rem;
+            letter-spacing: 0.08em;
         }
 
         .sophos-title {
-            font-size: 2rem;
-            line-height: 1.08;
-            font-weight: 780;
+            font-size: 2.35rem;
+            line-height: 1.04;
+            font-weight: 820;
             margin: 0;
+            max-width: 920px;
         }
 
         .sophos-copy {
@@ -83,20 +113,49 @@ def aplicar_estilos():
             max-width: 860px;
         }
 
+        .hero-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .hero-chip {
+            border: 1px solid rgba(219, 229, 225, 0.95);
+            border-radius: 16px;
+            padding: 0.85rem 0.9rem;
+            background: rgba(255,255,255,0.92);
+            min-height: 88px;
+        }
+
+        .hero-chip strong {
+            display: block;
+            font-size: 1rem;
+            margin-top: 0.3rem;
+            color: var(--sophos-ink);
+        }
+
+        .hero-chip span {
+            color: var(--sophos-muted);
+            font-size: 0.84rem;
+        }
+
         .sophos-section-label {
             color: var(--sophos-muted);
             font-size: 0.8rem;
             font-weight: 740;
             text-transform: uppercase;
             margin-bottom: 0.35rem;
+            letter-spacing: 0.06em;
         }
 
         .signal-card {
             border: 1px solid var(--sophos-line);
-            border-radius: 8px;
+            border-radius: 16px;
             padding: 1rem;
             background: var(--sophos-panel);
             min-height: 166px;
+            box-shadow: 0 10px 24px rgba(15, 23, 42, 0.04);
         }
 
         .signal-buy {
@@ -145,9 +204,10 @@ def aplicar_estilos():
 
         div[data-testid="stMetric"] {
             border: 1px solid var(--sophos-line);
-            border-radius: 8px;
+            border-radius: 16px;
             padding: 0.8rem 0.9rem;
             background: #ffffff;
+            box-shadow: 0 10px 24px rgba(15, 23, 42, 0.03);
         }
 
         div[data-testid="stMetricLabel"] {
@@ -161,7 +221,7 @@ def aplicar_estilos():
 
         .stButton > button {
             width: 100%;
-            border-radius: 8px;
+            border-radius: 12px;
             border: 1px solid var(--sophos-green);
             background: var(--sophos-green);
             color: #ffffff;
@@ -173,9 +233,149 @@ def aplicar_estilos():
             background: #115e59;
             color: #ffffff;
         }
+
+        div[data-testid="stTabs"] button {
+            min-height: 44px;
+            white-space: nowrap;
+        }
+
+        div[data-testid="stTabs"] div[role="tablist"] {
+            gap: 0.25rem;
+            overflow-x: auto;
+            scrollbar-width: thin;
+        }
+
+        @media (max-width: 768px) {
+            .block-container {
+                padding: 0.55rem 0.72rem 1.5rem;
+            }
+
+            .sophos-hero {
+                padding: 0.85rem;
+                margin-bottom: 0.75rem;
+                border-radius: 16px;
+            }
+
+            .sophos-brand {
+                font-size: 0.72rem;
+            }
+
+            .sophos-title {
+                font-size: 1.52rem;
+                line-height: 1.15;
+            }
+
+            .sophos-copy {
+                font-size: 0.9rem;
+                line-height: 1.42;
+            }
+
+            .signal-card {
+                padding: 0.85rem;
+                min-height: auto;
+            }
+
+            .hero-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .signal-title {
+                font-size: 1.08rem;
+                line-height: 1.22;
+            }
+
+            .signal-meta {
+                font-size: 0.86rem;
+            }
+
+            .mini-pill {
+                max-width: 100%;
+                overflow-wrap: anywhere;
+            }
+
+            div[data-testid="stMetric"] {
+                padding: 0.62rem 0.7rem;
+            }
+
+            div[data-testid="stMetricValue"] {
+                font-size: 1rem;
+            }
+
+            .stButton > button {
+                min-height: 48px;
+                font-size: 0.94rem;
+            }
+
+            div[data-testid="stHorizontalBlock"] {
+                gap: 0.65rem;
+            }
+
+            section[data-testid="stSidebar"] div[data-testid="stVerticalBlock"] {
+                gap: 0.55rem;
+            }
+        }
         </style>
         """,
         unsafe_allow_html=True,
+    )
+
+
+def registrar_pwa():
+    components.html(
+        """
+        <script>
+        const iconSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+          <rect width="512" height="512" rx="96" fill="#0f766e"/>
+          <path d="M104 318c50 0 54-132 102-132 45 0 44 132 94 132 52 0 55-132 108-132" fill="none" stroke="#ffffff" stroke-width="38" stroke-linecap="round"/>
+          <path d="M112 378h288" stroke="#b7f7e7" stroke-width="28" stroke-linecap="round"/>
+          <circle cx="256" cy="128" r="34" fill="#b7f7e7"/>
+        </svg>`;
+        const iconHref = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(iconSvg);
+        const manifestPayload = {
+            name: "Sophos Signal",
+            short_name: "Sophos",
+            description: "Sinais educacionais de daytrade para ativos da B3.",
+            start_url: window.location.origin + window.location.pathname,
+            scope: window.location.origin + "/",
+            display: "standalone",
+            orientation: "portrait",
+            background_color: "#ffffff",
+            theme_color: "#0f766e",
+            icons: [{ src: iconHref, sizes: "any", type: "image/svg+xml", purpose: "any maskable" }],
+            categories: ["finance", "productivity"],
+            lang: "pt-BR"
+        };
+        const manifestHref = URL.createObjectURL(
+            new Blob([JSON.stringify(manifestPayload)], { type: "application/manifest+json" })
+        );
+        const targetDocument = window.parent?.document || document;
+
+        if (!targetDocument.querySelector('link[rel="manifest"]')) {
+            const manifest = targetDocument.createElement("link");
+            manifest.rel = "manifest";
+            manifest.href = manifestHref;
+            targetDocument.head.appendChild(manifest);
+        }
+
+        if (!targetDocument.querySelector('link[rel="apple-touch-icon"]')) {
+            const icon = targetDocument.createElement("link");
+            icon.rel = "apple-touch-icon";
+            icon.href = iconHref;
+            targetDocument.head.appendChild(icon);
+        }
+
+        let theme = targetDocument.querySelector('meta[name="theme-color"]');
+        if (!theme) {
+            theme = targetDocument.createElement("meta");
+            theme.name = "theme-color";
+            targetDocument.head.appendChild(theme);
+        }
+        theme.content = "#0f766e";
+
+        </script>
+        """,
+        height=0,
+        width=0,
     )
 
 
@@ -218,11 +418,17 @@ def renderizar_hero():
         """
         <div class="sophos-hero">
             <div class="sophos-brand">Sophos Signal</div>
-            <h1 class="sophos-title">MVP SaaS para sinais de daytrade</h1>
+            <h1 class="sophos-title">Painel editorial para sinais de daytrade, research e publicação diaria</h1>
             <p class="sophos-copy">
-                Radar operacional para ativos da B3 com setup, entrada, stop,
-                alvo, score de confianca, historico e camada opcional de research com IA.
+                Um front-end mais forte para o Sophos Signal: radar operacional, fluxo de research,
+                historico da sessao e pagina diaria pronta para compartilhar.
             </p>
+            <div class="hero-grid">
+                <div class="hero-chip"><span>Modo rapido</span><strong>Sinais acionaveis em poucos cliques</strong></div>
+                <div class="hero-chip"><span>Research IA</span><strong>Analise tecnica, noticias e LSTM</strong></div>
+                <div class="hero-chip"><span>Publicacao</span><strong>HTML diario pronto para e-mail</strong></div>
+                <div class="hero-chip"><span>Deploy</span><strong>Pronto para Render com porta dinamica</strong></div>
+            </div>
         </div>
         """,
         unsafe_allow_html=True,
@@ -298,6 +504,8 @@ def renderizar_card_sinal(sinal: dict):
                 R/R: <b>{rr}</b><br>
                 Confianca: <b>{sinal['confianca']}%</b> |
                 RSI: <b>{sinal['rsi']:.1f}</b> |
+                ADX: <b>{sinal['adx']:.1f}</b> |
+                Estoc.: <b>{sinal['stoch_k']:.1f}</b> |
                 Vol. relativo: <b>{sinal['volume_relativo']:.2f}x</b><br>
                 Validade: {sinal['validade']}
             </div>
@@ -312,11 +520,23 @@ def renderizar_saas_home(empresa_nome, ticker_yahoo, janela_dias, perfil_risco):
     usados = st.session_state["creditos_usados"]
     limite = st.session_state["limite_creditos"]
     plano = st.session_state["plano"]
+    col_status, col_qtd, col_watch, col_janela = st.columns([1.2, 1, 1, 1])
+    col_status.metric("Empresa foco", empresa_nome)
+    col_qtd.metric("Plano", plano)
+    col_watch.metric("Watchlist", len(st.session_state["watchlist"]))
+    col_janela.metric("Janela tecnica", f"{janela_dias} dias")
+
+    st.markdown(
+        """
+        <div class="sophos-section-label">Visao geral</div>
+        """,
+        unsafe_allow_html=True,
+    )
     col_a, col_b, col_c, col_d = st.columns(4)
-    col_a.metric("Plano", plano)
-    col_b.metric("Sinais usados", f"{usados}/{limite}")
-    col_c.metric("Watchlist", len(st.session_state["watchlist"]))
-    col_d.metric("Janela tecnica", f"{janela_dias} dias")
+    col_a.metric("Sinais usados", f"{usados}/{limite}")
+    col_b.metric("Perfil de risco", perfil_risco)
+    col_c.metric("Ticker", ticker_yahoo)
+    col_d.metric("Ultima atualizacao", date.today().strftime("%d/%m/%Y"))
 
     st.divider()
     aba_radar, aba_sinal, aba_historico, aba_planos = st.tabs(
@@ -337,6 +557,7 @@ def renderizar_saas_home(empresa_nome, ticker_yahoo, janela_dias, perfil_risco):
                         <div class="signal-title">{papel}</div>
                         <div class="signal-meta">
                             Alertas: tendencia, VWAP, MACD e volume.<br>
+                            Filtros: ADX, Estocastico e Bollinger.<br>
                             Plano atual: {plano}
                         </div>
                     </div>
@@ -525,6 +746,7 @@ def renderizar_resultados(resultados):
 
 
 aplicar_estilos()
+registrar_pwa()
 inicializar_estado()
 renderizar_hero()
 

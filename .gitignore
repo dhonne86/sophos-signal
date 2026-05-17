@@ -16,3 +16,6 @@ streamlit.err.log
 http.out.log
 http.err.log
 .streamlit/secrets.toml
+
+platform-tools/
+platform-tools-latest-windows.zip

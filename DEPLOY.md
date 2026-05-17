@@ -43,6 +43,39 @@ streamlit run app.py --server.port 8501 --server.address 0.0.0.0
 
 Depois configure um proxy reverso, como Nginx, para expor o app em HTTPS.
 
+## Deploy no Render
+
+O projeto inclui `render.yaml` para deploy direto como Web Service.
+
+### Configuracao recomendada
+
+```text
+Build Command: pip install -r requirements.txt
+Start Command: streamlit run app.py --server.address 0.0.0.0 --server.port $PORT
+Health Check Path: /_stcore/health
+```
+
+### Passos
+
+1. Envie o projeto para o GitHub.
+2. No Render, crie um novo Web Service apontando para o repositorio.
+3. Use o `render.yaml` como referencia ou deixe o Render detectar o comando de inicio.
+4. Cadastre os secrets no painel do Render:
+
+```env
+OPENAI_API_KEY
+BRAPI_API_KEY
+SMTP_HOST
+SMTP_PORT
+SMTP_USER
+SMTP_PASSWORD
+SMTP_FROM
+SIGNAL_EMAIL_TO
+SIGNAL_TICKER
+SIGNAL_EMPRESA
+SIGNAL_WINDOW_DAYS
+```
+
 Exemplo de DNS:
 
 ```text

@@ -86,7 +86,8 @@ def render_html(signal: Signal) -> str:
         <div class="metric"><div class="label">Alvo</div><div class="value">{format_brl(signal.alvo)}</div></div>
         <div class="metric"><div class="label">Risco/Retorno</div><div class="value">{rr}</div></div>
         <div class="metric"><div class="label">Confianca</div><div class="value">{signal.confianca}%</div></div>
-        <div class="metric"><div class="label">RSI / Volume relativo</div><div class="value">{signal.rsi:.1f} / {signal.volume_relativo:.2f}x</div></div>
+        <div class="metric"><div class="label">RSI / ADX</div><div class="value">{signal.rsi:.1f} / {signal.adx:.1f}</div></div>
+        <div class="metric"><div class="label">Estocastico / Volume rel.</div><div class="value">{signal.stoch_k:.1f} / {signal.volume_relativo:.2f}x</div></div>
       </div>
       <h2>Gatilhos</h2>
       <ul>{gatilhos}</ul>

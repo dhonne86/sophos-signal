@@ -1,0 +1,21 @@
+{
+  "name": "Sophos Signal",
+  "short_name": "Sophos",
+  "description": "Sinais educacionais de daytrade para ativos da B3.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "theme_color": "#0f766e",
+  "icons": [
+    {
+      "src": "/app/static/sophos-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["finance", "productivity"],
+  "lang": "pt-BR"
+}
