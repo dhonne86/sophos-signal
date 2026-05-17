@@ -53,6 +53,7 @@ O projeto inclui `render.yaml` para deploy direto como Web Service.
 Build Command: pip install -r requirements.txt
 Start Command: streamlit run app.py --server.address 0.0.0.0 --server.port $PORT
 Health Check Path: /_stcore/health
+Python Version: 3.11.11
 ```
 
 ### Passos

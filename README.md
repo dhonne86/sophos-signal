@@ -129,6 +129,10 @@ O arquivo `render.yaml` ja prepara o app como Web Service.
 streamlit run app.py --server.address 0.0.0.0 --server.port $PORT
 ```
 
+### Versao do Python
+
+Use `3.11.11` no Render para garantir wheels binarias para `scipy` e `scikit-learn`.
+
 ### Secrets no Render
 
 ```env

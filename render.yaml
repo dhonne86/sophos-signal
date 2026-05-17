@@ -6,6 +6,6 @@ services:
     buildCommand: pip install -r requirements.txt
     startCommand: streamlit run app.py --server.address 0.0.0.0 --server.port $PORT
     healthCheckPath: /_stcore/health
-    envVars:
+envVars:
       - key: PYTHON_VERSION
-        value: 3.11.9
+        value: 3.11.11
